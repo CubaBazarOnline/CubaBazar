@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es-CU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CubaBazarOnline - Plataforma de comercio cubana gratuita para comprar, vender y ofrecer servicios exclusivamente para residentes en Cuba">
+    <meta name="keywords" content="Cuba, compra, venta, servicios, clasificados, comercio, electrónica, vivienda, trabajo, negocios">
+    <meta name="author" content="CubaBazarOnline">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#002A8F">
+    <meta property="og:title" content="CubaBazarOnline - Plataforma de comercio cubana">
+    <meta property="og:description" content="Compra, vende o ofrece servicios en nuestra comunidad segura y exclusiva para cubanos">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_CU">
+    
+    <title>CubaBazarOnline - Plataforma de Comercio Cubana | Compra y Venta en Cuba</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🇨🇺</text></svg>">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        :root {
+            --azul-cuba: #002A8F;
+            --rojo-cuba: #CF142B;
+            --blanco: #FFFFFF;
+            --gris-claro: #F5F5F5;
+            --gris-oscuro: #333333;
+            --verde-cta: #2ECC71;
+            --sombra: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transicion: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--gris-oscuro);
+            background-color: var(--gris-claro);
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Mejoras de accesibilidad */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        a:focus, button:focus {
+            outline: 3px solid var(--rojo-cuba);
+            outline-offset: 3px;
+        }
+        
+        /* Verificación de nacionalidad */
+        .access-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--blanco);
+        }
+        
+        .access-box {
+            background-color: var(--azul-cuba);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: var(--sombra);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .access-box h2 {
+            margin-bottom: 1.5rem;
+            color: var(--blanco);
+            font-size: 1.8rem;
+        }
+        
+        .access-box p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .flag-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--blanco);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transicion);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--verde-cta);
+            color: var(--blanco);
+            margin-right: 1rem;
+        }
+        
+        .btn-primary:hover {
+            background-color: #27ae60;
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            border: 2px solid var(--blanco);
+            color: var(--blanco);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--azul-cuba) 0%, var(--rojo-cuba) 100%);
+            color: var(--blanco);
+            padding: 1rem 0;
+            box-shadow: var(--sombra);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--blanco);
+        }
+        
+        .logo i {
+            margin-right: 0.8rem;
+            color: var(--blanco);
+            font-size: 1.8rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+        
+        .nav-links a {
+            color: var(--blanco);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+        }
+        
+        .nav-links a:hover {
+            color: #FFD700;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #FFD700;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 42, 143, 0.8), rgba(207, 20, 43, 0.8)), 
+                        url('https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .hero-content {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            color: var(--blanco);
+            position: relative;
+            z-index: 1;
+            animation: slideIn 1s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+        
+        /* Main Content */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 3rem auto;
+            flex: 1;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--azul-cuba);
+            position: relative;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--rojo-cuba);
+            margin: 1rem auto 0;
+        }
+        
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+        
+        .feature-card {
+            background: var(--blanco);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+            text-align: center;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--rojo-cuba);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--azul-cuba);
+            font-size: 1.3rem;
+        }
+        
+        /* Download Section */
+        .download-section {
+            background: linear-gradient(135deg, var(--azul-cuba) 0%, var(--rojo-cuba) 100%);
+            padding: 4rem 0;
+            color: var(--blanco);
+            text-align: center;
+            margin: 4rem 0;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .download-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .download-content {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .download-content h2 {
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .download-content p {
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .download-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .download-btn {
+            display: flex;
+            align-items: center;
+            background: var(--blanco);
+            color: var(--azul-cuba);
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transicion);
+            min-width: 220px;
+        }
+        
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .download-btn i {
+            font-size: 1.8rem;
+            margin-right: 0.8rem;
+        }
+        
+        .btn-text {
+            text-align: left;
+        }
+        
+        .btn-text span:first-child {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+        
+        /* How it works */
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+            gap: 1.5rem;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+            padding: 1.5rem;
+            position: relative;
+            background: var(--blanco);
+            border-radius: 10px;
+            box-shadow: var(--sombra);
+            transition: var(--transicion);
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--rojo-cuba);
+            color: var(--blanco);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+        
+        .step h3 {
+            margin-bottom: 1rem;
+            color: var(--azul-cuba);
+            font-size: 1.3rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--azul-cuba);
+            color: var(--blanco);
+            padding: 3rem 0 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--rojo-cuba);
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-col ul li i {
+            margin-right: 0.5rem;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .footer-col ul li a {
+            color: var(--blanco);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: #FFD700;
+            text-decoration: underline;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--blanco);
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFD700;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+        }
+        
+        /* Mejoras de rendimiento */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* Preload de fuentes e iconos */
+        .preload-fonts {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            font-family: 'Open Sans', 'Roboto';
+        }
+        
+        /* Optimización para móviles */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 1rem;
+                justify-content: center;
+            }
+            
+            .nav-links {
+                margin-top: 1rem;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .download-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                height: 70vh;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .feature-card, .step {
+                min-width: 100%;
+            }
+            
+            .btn {
+                padding: 0.7rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+        
+        /* Optimizaciones para navegadores antiguos */
+        @supports not (display: grid) {
+            .features, .footer-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            
+            .feature-card, .footer-col {
+                flex: 1 1 300px;
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Verificación de nacionalidad -->
+    <div class="access-modal" id="accessModal">
+        <div class="access-box">
+            <div class="flag-icon" aria-hidden="true">
+                <i class="fas fa-flag"></i>
+            </div>
+            <h2>Acceso exclusivo para cubanos</h2>
+            <p>CubaBazarOnline es una plataforma creada especialmente para la comunidad cubana. Para continuar, confirma que eres residente en Cuba.</p>
+            <button class="btn btn-primary" id="confirmCuban">Soy cubano/a</button>
+            <button class="btn btn-outline" id="notCuban">No soy cubano/a</button>
+        </div>
+    </div>
+
+    <!-- Contenido principal (oculto inicialmente) -->
+    <div id="mainContent" style="display: none;">
+        <header>
+            <div class="header-container">
+                <a href="#inicio" class="logo">
+                    <i class="fas fa-store" aria-hidden="true"></i>
+                    <span>CubaBazarOnline</span>
+                </a>
+                <nav aria-label="Navegación principal">
+                    <ul class="nav-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#como-funciona">Cómo funciona</a></li>
+                        <li><a href="#categorias">Categorías</a></li>
+                        <li><a href="#descargar">Descargar</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <section class="hero" id="inicio" aria-label="Bienvenida a CubaBazarOnline">
+            <div class="hero-content">
+                <h1>La plataforma de comercio cubana más grande</h1>
+                <p>Compra, vende o ofrece servicios en nuestra comunidad segura y exclusiva para cubanos. Totalmente gratis y fácil de usar.</p>
+                <a href="https://whatsapp.com/channel/0029Vb61NTa5vKA3hCMIQr3j" class="btn btn-primary">Unete ahora</a>
+            </div>
+        </section>
+
+        <main class="container">
+            <section id="features" aria-labelledby="features-heading">
+                <h2 class="section-title" id="features-heading">¿Por qué usar CubaBazarOnline?</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h3>Totalmente Gratis</h3>
+                        <p>Publica todos los anuncios que necesites sin pagar comisiones ni tarifas ocultas. Nuestro compromiso es con la economía cubana.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-list-alt"></i>
+                        </div>
+                        <h3>Amplias Categorías</h3>
+                        <p>Desde electrónica hasta servicios profesionales. Encuentra todo lo que necesitas en nuestras categorías especializadas.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Seguridad Garantizada</h3>
+                        <p>Sistema de verificación de usuarios y calificaciones para que realices transacciones con total confianza.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="como-funciona" aria-labelledby="como-funciona-heading">
+                <h2 class="section-title" id="como-funciona-heading">Cómo funciona</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Regístrate</h3>
+                        <p>Crea tu cuenta en minutos con tu correo electrónico.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Publica</h3>
+                        <p>Sube fotos y detalles de lo que quieres vender o del servicio que ofreces.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Conecta</h3>
+                        <p>Recibe mensajes de interesados y acuerda la transacción de manera segura.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="download-section" id="descargar" aria-labelledby="descargar-heading">
+                <div class="download-content">
+                    <h2 id="descargar-heading">Descarga nuestra app</h2>
+                    <p>Lleva CubaBazarOnline contigo a todas partes. Disponible para dispositivos Android.</p>
+                        </a>
+                        <a href="https://apk.e-droid.net/apk/app3494684-t8z7op.apk?v=7" class="download-btn" aria-label="Descargar APK directamente">
+                            <i class="fas fa-download" aria-hidden="true"></i>
+                            <div class="btn-text">
+                                <span>Descarga directa</span>
+                                <span>APK (Android)</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="categorias" aria-labelledby="categorias-heading">
+                <h2 class="section-title" id="categorias-heading">Principales Categorías</h2>
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h3>Electrónica</h3>
+                        <p>Teléfonos, computadoras, accesorios y más al mejor precio.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>Vivienda</h3>
+                        <p>Compra, venta o alquiler de propiedades en toda Cuba.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3>Servicios</h3>
+                        <p>Desde plomería hasta clases particulares. Encuentra el servicio que necesitas.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer id="contacto" aria-label="Información de contacto">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:cubabazaronline@gmail.com">contacto@cubabazaronline.cu</a></li>
+                        <li><i class="fas fa-phone" aria-hidden="true"></i> <a href="tel:+5350000000">+53 50369270</a></li>
+                        <li><i class="fas fa-map-marker-alt" aria-hidden="true"></i> La Habana, Cuba</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="current-year">2025</span> CubaBazarOnline. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Preload de fuentes para mejor rendimiento -->
+    <div class="preload-fonts" aria-hidden="true">.</div>
+
+    <script>
+        // Verificación de nacionalidad
+        document.addEventListener('DOMContentLoaded', function() {
+            // Actualizar año del copyright
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+            
+            // Verificar si ya había confirmado anteriormente
+            if(localStorage.getItem('isCuban') === 'true') {
+                document.getElementById('accessModal').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                return;
+            }
+            
+            // Manejar botones de verificación
+            document.getElementById('confirmCuban').addEventListener('click', function() {
+                document.getElementById('accessModal').style.display = 'none';
+                document.getElementById('mainContent').style.display = 'block';
+                localStorage.setItem('isCuban', 'true');
+                
+                // Mejorar métricas de UX
+                setTimeout(function() {
+                    console.log('Usuario cubano confirmado - cargando contenido principal');
+                }, 100);
+            });
+            
+            document.getElementById('notCuban').addEventListener('click', function() {
+                alert('Lamentablemente, CubaBazarOnline es una plataforma exclusiva para residentes en Cuba. Gracias por tu interés.');
+                // Podrías redirigir a una página alternativa aquí
+            });
+            
+            // Prefetch de recursos importantes
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('mouseover', function() {
+                    const targetId = this.getAttribute('href');
+                    if(targetId !== '#') {
+                        const targetSection = document.querySelector(targetId);
+                        if(targetSection) {
+                            // Precargar imágenes o recursos de la sección
+                        }
+                    }
+                });
+            });
+            
+            // Optimización para conexiones lentas
+            if(navigator.connection) {
+                if(navigator.connection.saveData || navigator.connection.effectiveType.includes('2g')) {
+                    // Deshabilitar algunas animaciones para ahorrar datos
+                    document.documentElement.style.setProperty('--transicion', 'none');
+                }
+            }
+        });
+        
+        // Service Worker para caché (mejorar offline support)
+        if('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                    console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
